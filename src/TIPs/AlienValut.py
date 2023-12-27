@@ -2,9 +2,10 @@ import requests
 import os
 from dotenv import load_dotenv
 
+
 def calculate_reputation(results: dict) -> str:
     load_dotenv()
-    threshold: int = os.getenv("AV_THRESHOLD") if os.getenv("AV_THRESHOLD") else 1
+    threshold: int = os.getenv("AV_THRESHOLD") if os.getenv("AV_THRESHOLD") else 2
     false_positive: dict = results.get('false_positive', [])
     pulse_info_dict: dict = results.get('pulse_info', {})
     try:

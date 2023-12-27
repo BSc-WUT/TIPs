@@ -50,7 +50,7 @@ def get_reputation(ip: str) -> IPReputation:
 
 
 @app.get('/tips/VirusTotal/{ip}')
-def get_reputation(ip: str) -> JSONResponse:
+def get_reputation(ip: str) -> IPReputation:
     tip_result: dict = vt_reputation(ip)
     reputation: IPReputation = {
         'service': "VirusTotal",
@@ -60,6 +60,10 @@ def get_reputation(ip: str) -> JSONResponse:
 
 
 @app.get('/tips/AbuseIPDB/{ip}')
-def get_reputation(ip: str) -> JSONResponse:
-    reputation: dict = ipdb_reputation(ip)
+def get_reputation(ip: str) -> IPReputation:
+    tip_result: dict = ipdb_reputation(ip)
+    reputation: IPReputation = {
+        'service': "AbuseIPDB",
+        **tip_result
+    }
     return reputation
