@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  tips:
+    image: packetbase/tips:latest
+    build: .
+    hostname: tips
+    ports:
+      - "7000:7000"
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - .env
+    networks:
+      - es-net
+networks:
+  es-net:
+    name: es-net
+    external: true
