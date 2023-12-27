@@ -13,3 +13,11 @@ class IP(BaseModel):
     reputation: List[IPReputation]
     ip: str
 
+
+class TIP(BaseModel):
+    name: str
+    is_active: bool
+
+class TIPs(BaseModel):
+    tips: List[TIP]
+

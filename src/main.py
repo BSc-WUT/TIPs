@@ -7,7 +7,7 @@ import os
 from .TIPs.AlienValut import get_reputation as av_reputation
 from .TIPs.VirusTotal import get_reputation as vt_reputation
 from .TIPs.AbuseIPDB import get_reputation as ipdb_reputation
-from .models import IPReputation, IP
+from .models import IPReputation, IP, TIPs
 from .file_metadata import set_is_active_flag, get_is_active_flag
 
 
@@ -111,7 +111,7 @@ def get_reputation(ip: str) -> IP:
     
 
 @app.get('/tips/all/')
-def get_reputation() -> JSONResponse:
+def get_reputation() -> TIPs:
     integrations: list = [{'name': path.split('.')[0], "is_active": get_is_active_flag(os.path.join(INTEGRATIONS_PATH, path))} for path in os.listdir(INTEGRATIONS_PATH) if path.endswith('.py') and path != '__init__.py']
-    results: dict = {"integrations": integrations}
+    results: TIPs = {"tips": integrations}
     return results
