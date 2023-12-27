@@ -6,7 +6,6 @@ def calculate_reputation(results: dict) -> str:
     load_dotenv()
     threshold: float = os.getenv("IPDB_THRESHOLD") if os.getenv("IPDB_THRESHOLD") else 0.1
     confidence_score: int = results.get('data', {}).get('abuseConfidenceScore')
-    print(confidence_score)
     if confidence_score is not None:
         count: float = 1 - confidence_score / 100
         if results.get('data', {}).get("isWhitelisted") == True or count < threshold:
