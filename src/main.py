@@ -109,3 +109,9 @@ def get_reputation(ip: str) -> IP:
             results['reputation'].append(reputation)
     return results
     
+
+@app.get('/tips/all/')
+def get_reputation() -> JSONResponse:
+    integrations: list = [{'name': path.split('.')[0], "is_active": get_is_active_flag(os.path.join(INTEGRATIONS_PATH, path))} for path in os.listdir(INTEGRATIONS_PATH) if path.endswith('.py') and path != '__init__.py']
+    results: dict = {"integrations": integrations}
+    return results
