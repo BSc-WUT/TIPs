@@ -7,6 +7,7 @@ import os
 from .TIPs.AlienValut import get_reputation as av_reputation
 from .TIPs.VirusTotal import get_reputation as vt_reputation
 from .TIPs.AbuseIPDB import get_reputation as ipdb_reputation
+from .models import IPReputation
 
 
 
@@ -39,8 +40,12 @@ app.add_middleware(
 ''' Threat Intelligence Platforms '''
 
 @app.get('/tips/AlienVault/{ip}')
-def get_reputation(ip: str) -> JSONResponse:
-    reputation: dict = av_reputation(ip)
+def get_reputation(ip: str) -> IPReputation:
+    tip_result: dict = av_reputation(ip)
+    reputation: IPReputation = {
+        'service': "AlienVault",
+        **tip_result
+    }
     return reputation
 
 
